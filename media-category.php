@@ -126,7 +126,6 @@ if(!class_exists('Mediacat')){
 					break;
 				default:
 					return;
-					break;
 			}
 			$sendback = add_query_arg( $query_args, admin_url( 'upload.php' ) );
 			wp_redirect( $sendback );
