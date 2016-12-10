@@ -10,17 +10,18 @@
   License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 if(!class_exists('Mediacat')){
 	/**
-	* Class to wrap up all the functions
-	*/
+	 * Class to wrap up all the functions
+	 */
 	class Mediacat{
 		/**
-		* constructor to load all the functionality
-		*/
+		 * constructor to load all the functionality
+		 */
 		function __construct(){
 			add_action( 'init', array( $this, 'create_media_taxonomy' ) );
 			add_action('wp_ajax_list_terms',array($this,'list_terms'));
@@ -68,50 +69,56 @@ if(!class_exists('Mediacat')){
 		function bulk_change_term_action_media() {
 		  	global $pagenow;
 		  	if($pagenow == 'upload.php') {
-		    	wp_enqueue_script('change-term',plugin_dir_url(__FILE__).'/assets/js/change-term.js');
+				wp_enqueue_script('change-term',plugin_dir_url(__FILE__).'/assets/js/change-term.js');
 		  	}
 		}
 
 		//Bulk Change Media Category Media Notices
 		function bulk_change_term_media_notices(){
 			global $media_type, $pagenow;
-		    if($pagenow == 'upload.php' && isset($_REQUEST['change_term']) && (int) $_REQUEST['change_term']) {
-		        $message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'] ), number_format_i18n( $_REQUEST['change_term'] ) );
-		        echo "<div class=\"updated\"><p>{$message}</p></div>";
-		    }
+			if($pagenow == 'upload.php' && isset($_REQUEST['change_term']) && (int) $_REQUEST['change_term']) {
+				$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'] ), number_format_i18n( $_REQUEST['change_term'] ) );
+				echo "<div class=\"updated\"><p>{$message}</p></div>";
+			}
 		}
 
 		// Perfrom Bulk Change Media Category Action 
 		function bulk_change_term_action() {
-			if ( isset( $_REQUEST['detached'] ) )
-			return;
+			if ( isset( $_REQUEST['detached'] ) ) {
+						return;
+			}
 			$action_request_top = ( isset( $_REQUEST['action'] ) && ! empty( $_REQUEST['action'] ) ) ?
 				$_REQUEST['action'] : '';
 			$action_request_bottom = ( isset( $_REQUEST['action2'] ) && ! empty( $_REQUEST['action2'] ) ) ?
 				$_REQUEST['action2'] : '';
 			$action = ( ! empty( $action_request_top ) ) ? $action_request_top : $action_request_bottom;
 			$allowed_actions = array( 'change_term' );
-			if ( empty( $action ) || ! in_array( $action, $allowed_actions ) )
-				return;
+			if ( empty( $action ) || ! in_array( $action, $allowed_actions ) ) {
+							return;
+			}
 			check_admin_referer('bulk-media');
 			$query_args = array();
-			if ( isset( $_REQUEST['post_mime_type'] ) )
-				$query_args['post_mime_type'] = $_REQUEST['post_mime_type'];
-			if ( isset( $_REQUEST['paged'] ) )
-				$query_args['paged'] = $_REQUEST['paged'];
+			if ( isset( $_REQUEST['post_mime_type'] ) ) {
+							$query_args['post_mime_type'] = $_REQUEST['post_mime_type'];
+			}
+			if ( isset( $_REQUEST['paged'] ) ) {
+							$query_args['paged'] = $_REQUEST['paged'];
+			}
 			switch ( $action ) {
 				case 'change_term':
 					$media = ( isset( $_REQUEST['media'] ) ) ?
 						(array) $_REQUEST['media'] : array();
 					if ( ! empty( $media ) ) {
 						$post_ids = array_map( 'intval', $_REQUEST['media'] );
-						if ( empty( $post_ids ) )
-							return;
+						if ( empty( $post_ids ) ) {
+													return;
+						}
 					}
 					$change_termed = 0;
 					foreach ( $post_ids as $post_id ) {
-						if ( ! $this->perform_change_term( $post_id ) )
-							wp_die( __('Error in changing categories.','media-category') );
+						if ( ! $this->perform_change_term( $post_id ) ) {
+													wp_die( __('Error in changing categories.','media-category') );
+						}
 						$change_termed++;
 					}
 					$query_args['change_term'] = $change_termed;
@@ -120,17 +127,17 @@ if(!class_exists('Mediacat')){
 				default:
 					return;
 					break;
-		    }
-		    $sendback = add_query_arg( $query_args, admin_url( 'upload.php' ) );
-		    wp_redirect( $sendback );
-		    exit();
+			}
+			$sendback = add_query_arg( $query_args, admin_url( 'upload.php' ) );
+			wp_redirect( $sendback );
+			exit();
 		}
 
 		// list terms available in media category 
 		function list_terms(){
 			$terms = get_terms( array(
-			    'taxonomy' => 'media-category',
-			    'hide_empty' => false,
+				'taxonomy' => 'media-category',
+				'hide_empty' => false,
 			) );
 			
 			echo '<select class="terms_form" name="terms" id="terms_cat">';
@@ -143,8 +150,8 @@ if(!class_exists('Mediacat')){
 			die;
 		}
 		//bulk action to change term
-		function perform_change_term($post_id){
-			if(isset($_GET['terms'])){
+		function perform_change_term($post_id) {
+			if (isset($_GET['terms'])) {
 				$terms = sanitize_text_field($_GET['terms'];
 				$taxonomy = 'media-category';
 				wp_set_object_terms($post_id, $terms, $taxonomy);
@@ -153,22 +160,22 @@ if(!class_exists('Mediacat')){
 		}
 
 		//shortcode to display media categorywise 
-		function media_category_shortcode($atts){
-			if(!empty($atts['category'])){
+		function media_category_shortcode($atts) {
+			if ( ! empty($atts['category'])) {
 				$pages = get_posts(array(
 				  'post_type' => 'attachment',
 				  'numberposts' => -1,
 				  'tax_query' => array(
-				    array(
-				      'taxonomy' => 'media-category',
-				      'field' => 'name',
-				      'terms' => $atts['category'], // Where term_id of Term 1 is "1".
-				      'include_children' => true
-				    )
+					array(
+					  'taxonomy' => 'media-category',
+					  'field' => 'name',
+					  'terms' => $atts['category'], // Where term_id of Term 1 is "1".
+					  'include_children' => true
+					)
 				  )
 				));
 
-				if(!empty($pages)):
+				if ( ! empty($pages)):
 					echo "<h3>".$atts['category']."</h3>";
 					echo '<ul style=list-style:none;>';
 					foreach ($pages as $key => $value) {
@@ -177,7 +184,7 @@ if(!class_exists('Mediacat')){
 					echo "</ul>";
 				else:
 					echo "<h3>".$atts['category']."</h3>";
-					_e('Sorry no media found in this category.','media-category');
+					_e('Sorry no media found in this category.', 'media-category');
 				endif;
 			}
 		}
