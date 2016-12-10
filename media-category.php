@@ -66,7 +66,7 @@ if(!class_exists('Mediacat')){
 		}
 
 		// Adding Custom Bulk Action in Media Panel		
-		function bulk_change_term_action_media() {
+		public function bulk_change_term_action_media() {
 		  	global $pagenow;
 		  	if($pagenow == 'upload.php') {
 				wp_enqueue_script('change-term',plugin_dir_url(__FILE__).'/assets/js/change-term.js');
