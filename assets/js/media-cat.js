@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
 	        	url: ajax_object.ajax_url,
 	        	dataType:'text',
 	        	data:{action:'list_terms'},
-	            success: function(result, success) {
+	            success: function(result) {
 	            	jQuery(loaderContainer).hide();
 	        	    jQuery(result).insertAfter("#bulk-action-selector-top");
 	      		}
