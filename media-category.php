@@ -115,7 +115,7 @@ if(!class_exists('Mediacat')){
 						}else{
 							$change_termed = 0;
 					foreach ( $post_ids as $post_id ) {
-						if ( ! $this->perform_change_term( $post_id ) ) {
+						if ( $this->perform_change_term( $post_id ) === false ) {
 													wp_die( __('Error in changing categories.','media-category') );
 						}
 						$change_termed++;
@@ -157,6 +157,8 @@ if(!class_exists('Mediacat')){
 				$taxonomy = 'media-category';
 				wp_set_object_terms($post_id, $terms, $taxonomy);
 				return true;
+			}else{
+			return false;
 			}
 		}
 
