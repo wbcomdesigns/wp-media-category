@@ -112,9 +112,8 @@ if(!class_exists('Mediacat')){
 						$post_ids = array_map( 'intval', $_REQUEST['media'] );
 						if ( empty( $post_ids ) ) {
 													return;
-						}
-					}
-					$change_termed = 0;
+						}else{
+							$change_termed = 0;
 					foreach ( $post_ids as $post_id ) {
 						if ( ! $this->perform_change_term( $post_id ) ) {
 													wp_die( __('Error in changing categories.','media-category') );
@@ -123,6 +122,9 @@ if(!class_exists('Mediacat')){
 					}
 					$query_args['change_term'] = $change_termed;
 					$query_args['ids']      = join( ',', $post_ids );
+						}
+					}
+					
 					break;
 				default:
 					return;
