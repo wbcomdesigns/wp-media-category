@@ -32,7 +32,7 @@ if(!class_exists('Mediacat')){
 		}
 
 		// Function to create taxonomy for media media type
-		public function create_media_taxonomy(){
+		 function create_media_taxonomy(){
 			global $pagenow;
 			$labels = array(
 				'name'              => __( 'Media Categories', 'taxonomy general name', 'media-category' ),
@@ -66,7 +66,7 @@ if(!class_exists('Mediacat')){
 		}
 
 		// Adding Custom Bulk Action in Media Panel		
-		public function bulk_change_term_action_media() {
+		function bulk_change_term_action_media() {
 		  	global $pagenow;
 		  	if($pagenow == 'upload.php') {
 				wp_enqueue_script('change-term',plugin_dir_url(__FILE__).'/assets/js/change-term.js');
@@ -74,7 +74,7 @@ if(!class_exists('Mediacat')){
 		}
 
 		//Bulk Change Media Category Media Notices
-		public function bulk_change_term_media_notices(){
+		function bulk_change_term_media_notices(){
 			global $media_type, $pagenow;
 			if($pagenow == 'upload.php' && isset($_REQUEST['change_term']) && (int) $_REQUEST['change_term']) {
 				$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'] ), number_format_i18n( $_REQUEST['change_term'] ) );
@@ -83,7 +83,7 @@ if(!class_exists('Mediacat')){
 		}
 
 		// Perfrom Bulk Change Media Category Action 
-		public function bulk_change_term_action() {
+		function bulk_change_term_action() {
 			if ( isset( $_REQUEST['detached'] ) ) {
 						return;
 			}
@@ -134,7 +134,7 @@ if(!class_exists('Mediacat')){
 		}
 
 		// list terms available in media category 
-		public function list_terms(){
+		function list_terms(){
 			$terms = get_terms( array(
 				'taxonomy' => 'media-category',
 				'hide_empty' => false,
@@ -160,7 +160,7 @@ if(!class_exists('Mediacat')){
 		}
 
 		//shortcode to display media categorywise 
-		public function media_category_shortcode($atts) {
+		function media_category_shortcode($atts) {
 			if ( ! empty($atts['category'])) {
 				$pages = get_posts(array(
 				  'post_type' => 'attachment',
