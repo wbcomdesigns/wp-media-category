@@ -150,7 +150,7 @@ if(!class_exists('Mediacat')){
 			die;
 		}
 		//bulk action to change term
-		public function perform_change_term($post_id) {
+		function perform_change_term($post_id) {
 			if (isset($_GET['terms'])) {
 				$terms = sanitize_text_field($_GET['terms']);
 				$taxonomy = 'media-category';
