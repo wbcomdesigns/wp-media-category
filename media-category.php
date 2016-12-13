@@ -185,11 +185,9 @@ if ( ! class_exists('Mediacat')) {
 						echo '<li class=thumb_media><img class=media_img src='.$value->guid.'></li>';
 					}
 					echo "</ul>";
-				else {
-					:
-					echo "<h3>".$atts['category']."</h3>";
-				}
-					_e('Sorry no media found in this category.', 'media-category');
+				else:
+				echo "<h3>".$atts['category']."</h3>";
+				_e('Sorry no media found in this category.', 'media-category');
 				endif;
 			}
 		}
