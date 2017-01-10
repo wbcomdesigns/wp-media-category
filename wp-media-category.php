@@ -1,10 +1,10 @@
 <?php 
 /*
-  Plugin Name: Media Category Option
+  Plugin Name: WordPress Media Category
   Plugin URI: http://www.wbcomdesigns.com/plugins/media-category-option
-  Description: Adds taxonomy to categorize media
+  Description: This plugin allows site administrator to have taxonomies built for media and display categorized media.
   Version: 1.0.0
-  Author: WBCOM DESIGNS<admin@wbcomdesigns.com>
+  Author: Wbcom Designs
   Author URI: http://www.wbcomdesigns.com
   License: GPL2
   License URI: http://www.gnu.org/licenses/gpl-2.0.html
