@@ -171,7 +171,7 @@ class Wp_Media_Category {
 		$plugin_public = new Wp_Media_Category_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'wpmc_enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'wpmc_enqueue_scripts' );
 	}
 
 	/**

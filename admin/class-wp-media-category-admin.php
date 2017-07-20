@@ -254,11 +254,15 @@ class Wp_Media_Category_Admin {
 
 			if ( ! empty($pages)):
 				echo "<h3>".$atts['category']."</h3>";
-				echo '<ul style=list-style:none;>';
+				echo '<div class="wpmc-media-display">';
 				foreach ($pages as $key => $value) {
-					echo '<li class=thumb_media><img class=media_img src='.$value->guid.'></li>';
+					echo '<div class="wpmc-single-media">';
+					echo '<a title="'.$value->post_title.'" href="'.$value->guid.'" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
+					echo '<img src='.$value->guid.' alt="'.$value->post_title.'" />';
+					echo '</a>';
+					echo '</div>';
 				}
-				echo "</ul>";
+				echo "</div>";
 			else:
 			echo "<h3>".$atts['category']."</h3>";
 			_e('Sorry no media found in this category.', WPMC_TEXT_DOMAIN);

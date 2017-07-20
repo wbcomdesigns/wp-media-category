@@ -1,9 +1,11 @@
-.thumb_media{
-	width:33%;
+.wpmc-single-media {
+	width: 30%;
 	display: inline-block;
-	padding-left: 2px;
+	overflow: hidden;
+	height: 200px;
+	margin-left: 10px;
+	border: 2px solid #ddd;
 }
-.media_img{
-	width:150px;
-	height:150px;
+.wpmc-single-media img {
+	max-width: none !important;
 }
