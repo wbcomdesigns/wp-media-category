@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 			'class': 'loader-image-container'
 			}).insertAfter( "#bulk-action-selector-top" );
 			var loader = jQuery( '<img/>', {
-			src: url.spinner_url,
+			src: wpmc_admin_js.spinner_url,
 			'class': 'loader-image'
 			}).appendTo( loaderContainer );
 

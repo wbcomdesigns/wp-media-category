@@ -172,7 +172,7 @@ class Wp_Media_Category {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'wpmc_enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'wbmedia', $plugin_public, 'wpmc_media_category_shortcode' );
+		$this->loader->add_shortcode( 'wbmedia', $plugin_public, 'wpmc_media_category_shortcode' );
 	}
 
 	/**
