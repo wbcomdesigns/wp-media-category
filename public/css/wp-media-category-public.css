@@ -1,0 +1,9 @@
+.thumb_media{
+	width:33%;
+	display: inline-block;
+	padding-left: 2px;
+}
+.media_img{
+	width:150px;
+	height:150px;
+}

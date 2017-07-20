@@ -1,196 +1,87 @@
-<?php 
-/*
-  Plugin Name: WordPress Media Category
-  Plugin URI: http://www.wbcomdesigns.com/plugins/media-category-option
-  Description: This plugin allows site administrator to have taxonomies built for media and display categorized media.
-  Version: 1.0.0
-  Author: Wbcom Designs
-  Author URI: http://www.wbcomdesigns.com
-  License: GPL2
-  License URI: http://www.gnu.org/licenses/gpl-2.0.html
+<?php
+
+/**
+ * The plugin bootstrap file
+ *
+ * This file is read by WordPress to generate the plugin information in the plugin
+ * admin area. This file also includes all of the dependencies used by the plugin,
+ * registers the activation and deactivation functions, and defines a function
+ * that starts the plugin.
+ *
+ * @link              http://www.wbcomdesigns.com
+ * @since             1.0.0
+ * @package           Wp_Media_Category
+ *
+ * @wordpress-plugin
+ * Plugin Name:       WordPress Media Category
+ * Plugin URI:        https://wbcomdesigns.com/downloads/wordpress-media-category/
+ * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Version:           1.0.0
+ * Author:            Wbcom Designs
+ * Author URI:        http://www.wbcomdesigns.com
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       wp-media-category
+ * Domain Path:       /languages
  */
 
-if ( ! defined('ABSPATH')) {
-	exit;
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
-if ( ! class_exists('Mediacat')) {
-	/**
-	 * Class to wrap up all the functions
-	 */
-	class Mediacat {
-		/**
-		 * constructor to load all the functionality
-		 */
-		public function __construct() {
-			add_action('init', array($this, 'create_media_taxonomy'));
-			add_action('wp_ajax_list_terms', array($this, 'list_terms'));
-			add_action('admin_footer', array($this, 'bulk_change_term_action_media'));
-			add_action('admin_notices', array($this, 'bulk_change_term_media_notices'));
-			add_action('load-upload.php', array($this, 'bulk_change_term_action'));
-			add_shortcode('wbmedia', array($this, 'media_category_shortcode'));
-		}
+if( !defined( 'WPMC_TEXT_DOMAIN' ) ) {
+	define( 'WPMC_TEXT_DOMAIN', 'wp-media-category' );
+}
 
-		// Function to create taxonomy for media media type
-		 public function create_media_taxonomy() {
-			global $pagenow;
-			$labels = array(
-				'name'              => __('Media Categories', 'taxonomy general name', 'media-category'),
-				'singular_name'     => __('Media Category', 'taxonomy singular name', 'media-category'),
-				'search_items'      => __('Search Media Categories', 'media-category'),
-				'all_items'         => __('All Media Categories', 'media-category'),
-				'change_term_item'         => __('Change Media Category Media Categories', 'media-category'),
-				'update_item'       => __('Update Media Category', 'media-category'),
-				'add_new_item'      => __('Add New Media Category', 'media-category'),
-				'new_item_name'     => __('New Media Category Name', 'media-category'),
-				'menu_name'         => __('Media Category', 'media-category'),
-			);
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-wp-media-category-activator.php
+ */
+function activate_wp_media_category() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-media-category-activator.php';
+	Wp_Media_Category_Activator::activate();
+}
 
-			$args = array(
-				'hierarchical'      => true,
-				'labels'            => $labels,
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'update_count_callback' =>'_update_generic_term_count',
-				'query_var'         => true,
-				'rewrite'           => array('slug' => 'media-category'),
-			);
-			register_taxonomy('media-category', array('attachment'), $args);
-			if ($pagenow == 'upload.php') {
-				wp_enqueue_script('media-script', plugin_dir_url(__FILE__).'/assets/js/media-cat.js');
-				wp_localize_script('media-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
-				wp_localize_script('media-script', 'url', array('spinner_url' => plugin_dir_url(__FILE__).'/assets/spinner.gif'));
-			}
-			wp_enqueue_style('media-style', plugin_dir_url(__FILE__).'/assets/css/media-cat.css');
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-wp-media-category-deactivator.php
+ */
+function deactivate_wp_media_category() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-media-category-deactivator.php';
+	Wp_Media_Category_Deactivator::deactivate();
+}
 
-		}
+register_activation_hook( __FILE__, 'activate_wp_media_category' );
+register_deactivation_hook( __FILE__, 'deactivate_wp_media_category' );
 
-		// Adding Custom Bulk Action in Media Panel		
-		public function bulk_change_term_action_media() {
-		  	global $pagenow;
-		  	if ($pagenow == 'upload.php') {
-				wp_enqueue_script('change-term', plugin_dir_url(__FILE__).'/assets/js/change-term.js');
-		  	}
-		}
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/class-wp-media-category.php';
 
-		//Bulk Change Media Category Media Notices
-		public function bulk_change_term_media_notices() {
-			global $media_type, $pagenow;
-			if ($pagenow == 'upload.php' && isset($_REQUEST['change_term']) && (int) $_REQUEST['change_term']) {
-				$message = sprintf(_n('Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term']), number_format_i18n($_REQUEST['change_term']));
-				echo "<div class=\"updated\"><p>{$message}</p></div>";
-			}
-		}
-
-		// Perfrom Bulk Change Media Category Action 
-		public function bulk_change_term_action() {
-			if (isset($_REQUEST['detached'])) {
-						return;
-			}
-			$action_request_top = (isset($_REQUEST['action']) && ! empty($_REQUEST['action'])) ?
-				$_REQUEST['action'] : '';
-			$action_request_bottom = (isset($_REQUEST['action2']) && ! empty($_REQUEST['action2'])) ?
-				$_REQUEST['action2'] : '';
-			$action = ( ! empty($action_request_top)) ? $action_request_top : $action_request_bottom;
-			$allowed_actions = array('change_term');
-			if (empty($action) || ! in_array($action, $allowed_actions)) {
-							return;
-			}
-			check_admin_referer('bulk-media');
-			$query_args = array();
-			if (isset($_REQUEST['post_mime_type'])) {
-							$query_args['post_mime_type'] = $_REQUEST['post_mime_type'];
-			}
-			if (isset($_REQUEST['paged'])) {
-							$query_args['paged'] = $_REQUEST['paged'];
-			}
-			switch ($action) {
-				case 'change_term':
-					$media = (isset($_REQUEST['media'])) ?
-						(array) $_REQUEST['media'] : array();
-					if ( ! empty($media)) {
-						$post_ids = array_map('intval', $_REQUEST['media']);
-						if (empty($post_ids)) {
-													return;
-						} else {
-							$change_termed = 0;
-					foreach ($post_ids as $post_id) {
-						if ($this->perform_change_term($post_id) === false) {
-													wp_die(__('Error in changing categories.', 'media-category'));
-						}
-						$change_termed++;
-					}
-					$query_args['change_term'] = $change_termed;
-					$query_args['ids'] = join(',', $post_ids);
-						}
-					}
-					
-					break;
-				default:
-					return;
-			}
-			$sendback = add_query_arg($query_args, admin_url('upload.php'));
-			wp_redirect($sendback);
-			exit();
-		}
-
-		// list terms available in media category 
-		public function list_terms() {
-			$terms = get_terms(array(
-				'taxonomy' => 'media-category',
-				'hide_empty' => false,
-			));
-			
-			echo '<select class="terms_form" name="terms" id="terms_cat">';
-			
-				foreach ($terms as $term => $term_obj) {
-					echo "<option value='$term_obj->name'>$term_obj->name</option>\n";
-				}
-			
-			echo'</select>';
-			die;
-		}
-		//bulk action to change term
-		public function perform_change_term($post_id) {
-			if (isset($_GET['terms'])) {
-				$terms = sanitize_text_field($_GET['terms']);
-				$taxonomy = 'media-category';
-				wp_set_object_terms($post_id, $terms, $taxonomy);
-				return true;
-			} else {
-			return false;
-			}
-		}
-
-		//shortcode to display media categorywise 
-		public function media_category_shortcode($atts) {
-			if ( ! empty($atts['category'])) {
-				$pages = get_posts(array(
-				  'post_type' => 'attachment',
-				  'numberposts' => -1,
-				  'tax_query' => array(
-					array(
-					  'taxonomy' => 'media-category',
-					  'field' => 'name',
-					  'terms' => $atts['category'], // Where term_id of Term 1 is "1".
-					  'include_children' => true
-					)
-				  )
-				));
-
-				if ( ! empty($pages)):
-					echo "<h3>".$atts['category']."</h3>";
-					echo '<ul style=list-style:none;>';
-					foreach ($pages as $key => $value) {
-						echo '<li class=thumb_media><img class=media_img src='.$value->guid.'></li>';
-					}
-					echo "</ul>";
-				else:
-				echo "<h3>".$atts['category']."</h3>";
-				_e('Sorry no media found in this category.', 'media-category');
-				endif;
-			}
-		}
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function run_wp_media_category() {
+	//Define constants
+	if( !defined( 'WPMC_PLUGIN_PATH' ) ) {
+		define( 'WPMC_PLUGIN_PATH', plugin_dir_path(__FILE__) );
 	}
-	new Mediacat();
+
+	if( !defined( 'WPMC_PLUGIN_URL' ) ) {
+		define( 'WPMC_PLUGIN_URL', plugin_dir_url(__FILE__) );
+	}
+
+	$plugin = new Wp_Media_Category();
+	$plugin->run();
+
 }
+run_wp_media_category();
