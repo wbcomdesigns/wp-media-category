@@ -233,4 +233,36 @@ class Wp_Media_Category_Admin {
 		return false;
 		}
 	}
+
+	/**
+	 *
+	 */
+	public function wpmc_media_category_shortcode( $atts ) {
+		if ( ! empty($atts['category'])) {
+			$pages = get_posts(array(
+				'post_type' => 'attachment',
+				'numberposts' => -1,
+				'tax_query' => array(
+				array(
+					'taxonomy' => 'media-category',
+					'field' => 'name',
+					'terms' => $atts['category'],
+					'include_children' => true
+				)
+			)
+			));
+
+			if ( ! empty($pages)):
+				echo "<h3>".$atts['category']."</h3>";
+				echo '<ul style=list-style:none;>';
+				foreach ($pages as $key => $value) {
+					echo '<li class=thumb_media><img class=media_img src='.$value->guid.'></li>';
+				}
+				echo "</ul>";
+			else:
+			echo "<h3>".$atts['category']."</h3>";
+			_e('Sorry no media found in this category.', WPMC_TEXT_DOMAIN);
+			endif;
+		}
+	}
 }
