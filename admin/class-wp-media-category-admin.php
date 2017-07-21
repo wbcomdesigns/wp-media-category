@@ -48,10 +48,9 @@ class Wp_Media_Category_Admin {
 	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
+		add_filter( 'body_class', array( $this, 'wpmc_add_body_class_for_video' ) );
 	}
 
 	/**
@@ -238,35 +237,64 @@ class Wp_Media_Category_Admin {
 	 *
 	 */
 	public function wpmc_media_category_shortcode( $atts ) {
-		if ( ! empty($atts['category'])) {
-			$pages = get_posts(array(
-				'post_type' => 'attachment',
-				'numberposts' => -1,
-				'tax_query' => array(
-				array(
-					'taxonomy' => 'media-category',
-					'field' => 'name',
-					'terms' => $atts['category'],
-					'include_children' => true
-				)
-			)
-			));
+		echo "<h3>".$atts['category']."</h3>";
+		if( !term_exists( $atts['category'], 'media-category' ) ) {
+			echo '<p class="wpmc-media-error">'.__( 'No such category exists!', WPMC_TEXT_DOMAIN ).'</p>';
+		} else {
+			if ( ! empty($atts['category'])) {
+				$wp_media = get_posts(
+					array(
+						'post_type' => 'attachment',
+						'numberposts' => -1,
+						'tax_query' => array(
+							array(
+								'taxonomy' => 'media-category',
+								'field' => 'name',
+								'terms' => $atts['category'],
+								'include_children' => true
+							)
+						)
+					)
+				);
 
-			if ( ! empty($pages)):
-				echo "<h3>".$atts['category']."</h3>";
-				echo '<div class="wpmc-media-display">';
-				foreach ($pages as $key => $value) {
-					echo '<div class="wpmc-single-media">';
-					echo '<a title="'.$value->post_title.'" href="'.$value->guid.'" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
-					echo '<img src='.$value->guid.' alt="'.$value->post_title.'" />';
-					echo '</a>';
-					echo '</div>';
+				if ( !empty( $wp_media ) ) {
+					echo '<div class="wpmc-media-display">';
+					foreach ( $wp_media as $key => $media ) {
+						$media_url = wp_get_attachment_url( $media->ID );
+						if( strpos( $media->post_mime_type, 'image' ) !== false ) {
+							echo '<div class="wpmc-single-media">';
+							echo '<a title="'.$media->post_title.'" href="'.$media->guid.'" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
+							echo '<img src='.$media->guid.' alt="'.$media->post_title.'" />';
+							echo '</a>';
+							echo '</div>';
+						} else if( strpos( $media->post_mime_type, 'video' ) !== false ) {
+							echo '<div class="wpmc-single-media-video">';
+							echo '<video controls="controls">';
+							echo '<source src="'.$media_url.'">';
+							echo '</video>';
+							echo '</div>';
+						} else if( strpos( $media->post_mime_type, 'audio' ) !== false ) {
+							echo '<div class="wpmc-single-media-audio">';
+							echo '<audio controls="controls">';
+							echo '<source src="'.$media_url.'">';
+							echo '</audio>';
+							echo '</div>';
+						}
+						
+					} //end loop for printing media
+					echo "</div>";
+				} else {
+					echo '<p class="wpmc-media-error">'.__( 'Sorry no media found in this category.', WPMC_TEXT_DOMAIN ).'</p>';
 				}
-				echo "</div>";
-			else:
-			echo "<h3>".$atts['category']."</h3>";
-			_e('Sorry no media found in this category.', WPMC_TEXT_DOMAIN);
-			endif;
+			}
 		}
+	}
+
+	public function wpmc_add_body_class_for_video( $c ) {
+		global $post;
+		if( isset($post->post_content) && has_shortcode( $post->post_content, 'wbmedia' ) ) {
+			$c[] = 'wbmedia-shortcode';
+		}
+		return $c;
 	}
 }
