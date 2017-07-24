@@ -280,7 +280,6 @@ class Wp_Media_Category_Admin {
 							echo '</audio>';
 							echo '</div>';
 						}
-						
 					} //end loop for printing media
 					echo "</div>";
 				} else {

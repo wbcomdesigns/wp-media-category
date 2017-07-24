@@ -27,6 +27,7 @@ Just like other post types categories, you have assign any media to any category
 == Screenshots ==
 1. The screenshot shows the edit media admin panel, showing the listed categories and corresponds to screenshot-1.(png|jpg|jpeg|gif).
 2. The screenshot shows the media list with assigned category and corresponds to screenshot-2.(png|jpg|jpeg|gif).
+3. The screenshot shows the media list with assigned category showing where the shortcode is executing and corresponds to screenshot-3.(png|jpg|jpeg|gif).
 
 == Changelog ==
 
