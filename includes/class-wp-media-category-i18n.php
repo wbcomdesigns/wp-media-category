@@ -26,7 +26,6 @@
  */
 class Wp_Media_Category_i18n {
 
-
 	/**
 	 * Load the plugin text domain for translation.
 	 *
@@ -35,13 +34,8 @@ class Wp_Media_Category_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'wp-media-category',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+		'media-category', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
 
 }
