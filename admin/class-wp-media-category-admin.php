@@ -165,12 +165,12 @@ class Wp_Media_Category_Admin {
 		die;
 	}
 
-	public function wpmc_add_custom_bulk_action( $bulk_actions ) {
+	public function wpmc_add_media_category_bulk_action( $bulk_actions ) {
 		$bulk_actions['change_term'] = __('Change Media Category', 'media-category');
 		return $bulk_actions;
 	}
 
-	function my_bulk_action_handler( $redirect_to, $action_name, $post_ids ) { 
+	function wpmc_media_category_bulk_action_handler( $redirect_to, $action_name, $post_ids ) { 
 		if ( 'change_term' === $action_name ) { 
 			if (isset($_GET['terms'])) {
 				$terms = sanitize_text_field($_GET['terms']);
@@ -186,7 +186,7 @@ class Wp_Media_Category_Admin {
 		return $redirect_to;
 	}
 
-	public function updated_media_category() {
+	public function wpmc_updated_media_category() {
 		if ( ! empty( $_REQUEST['bulk_media_category_processed'] ) ) { 
 			$posts_count = intval( $_REQUEST['bulk_media_category_processed'] );
 			$post_text = ( $posts_count > 1 ) ? __('posts','media-category') : __('post','media-category'); 
@@ -194,6 +194,32 @@ class Wp_Media_Category_Admin {
 				' . __( '<div class="notice notice-info is-dismissible"><p>Updated media category for %s %s.</p></div>', 'media-category' ) . ' ', $posts_count, $post_text );
 		}
 	} 
+
+	public function wpmc_add_media_category_filter() {
+		$scr = get_current_screen();
+	    if ( $scr->base !== 'upload' ) return;
+		$taxonomies = array('media-category');
+
+		foreach ($taxonomies as $tax_slug) {
+			$tax_obj = get_taxonomy($tax_slug);
+			$tax_name = $tax_obj->labels->name;
+			$terms = get_terms($tax_slug);
+			if(count($terms) > 0) {
+				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
+				echo "<option value=''>Show All $tax_name</option>";
+				foreach ($terms as $term) { 
+					printf(
+						'<option value="%1$s" %2$s>%3$s (%4$s)</option>',
+						$term->slug,
+						( ( isset( $_GET[$tax_slug] ) && ( $_GET[$tax_slug] == $term->slug ) ) ? ' selected="selected"' : '' ),
+						$term->name,
+						$term->count
+					);
+				}
+				echo "</select>";
+			}
+		}
+	}
 
 	/**
 	 *
