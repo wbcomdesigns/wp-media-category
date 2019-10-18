@@ -16,7 +16,7 @@
  * Plugin Name:       WordPress Media Category
  * Plugin URI:        https://wbcomdesigns.com/downloads/wordpress-media-category/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Wbcom Designs
  * Author URI:        http://www.wbcomdesigns.com
  * License:           GPL-2.0+
