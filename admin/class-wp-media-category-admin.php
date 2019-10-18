@@ -206,7 +206,7 @@ class Wp_Media_Category_Admin {
 			$terms = get_terms($tax_slug);
 			if(count($terms) > 0) {
 				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
-				echo "<option value=''>Show All $tax_name</option>";
+				echo "<option value=''>".__( 'Show all', 'media-category')." $tax_name</option>";
 				foreach ($terms as $term) { 
 					printf(
 						'<option value="%1$s" %2$s>%3$s (%4$s)</option>',
