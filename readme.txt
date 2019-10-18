@@ -34,6 +34,7 @@ Just like other post types categories, you have assign any media to any category
 = 1.0.1 =
 * Fix: Change Media Category bulk action bottom filter not working. (#2)
 * Fix: Translation issue fixes. (#4)
+* Enhancement: Added media category filter at media list table. (#3)
 
 = 1.0.0 =
 first version.
