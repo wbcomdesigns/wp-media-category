@@ -112,8 +112,8 @@ class Wp_Media_Category_Admin {
 	 */
 	public function wpmc_create_media_taxonomy() {
 		$labels = array(
-			'name'              => __('Media Categories', 'taxonomy general name', 'media-category'),
-			'singular_name'     => __('Media Category', 'taxonomy singular name', 'media-category'),
+			'name'              => __('Media Categories', 'media-category'),
+			'singular_name'     => __('Media Category', 'media-category'),
 			'search_items'      => __('Search Media Categories', 'media-category'),
 			'all_items'         => __('All Media Categories', 'media-category'),
 			'change_term_item'         => __('Change Media Category Media Categories', 'media-category'),
@@ -141,7 +141,7 @@ class Wp_Media_Category_Admin {
 	public function wpmc_bulk_change_term_media_notices() {
 		global $media_type, $pagenow;
 		if ($pagenow == 'upload.php' && isset($_REQUEST['change_term']) && (int) $_REQUEST['change_term']) {
-			$message = sprintf(_n('Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term']), number_format_i18n($_REQUEST['change_term']));
+			$message = sprintf(_n('Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media-category'), number_format_i18n($_REQUEST['change_term']));
 			echo "<div class=\"updated\"><p>{$message}</p></div>";
 		}
 	}
@@ -201,7 +201,7 @@ class Wp_Media_Category_Admin {
 	public function wpmc_media_category_shortcode( $atts ) {
 		echo "<h3>".$atts['category']."</h3>";
 		if( !term_exists( $atts['category'], 'media-category' ) ) {
-			echo '<p class="wpmc-media-error">'.__( 'No such category exists!', WPMC_TEXT_DOMAIN ).'</p>';
+			echo '<p class="wpmc-media-error">'.__( 'No such category exists!', 'media-category' ).'</p>';
 		} else {
 			if ( ! empty($atts['category'])) {
 				$wp_media = get_posts(
@@ -245,7 +245,7 @@ class Wp_Media_Category_Admin {
 					} //end loop for printing media
 					echo "</div>";
 				} else {
-					echo '<p class="wpmc-media-error">'.__( 'Sorry no media found in this category.', WPMC_TEXT_DOMAIN ).'</p>';
+					echo '<p class="wpmc-media-error">'.__( 'Sorry no media found in this category.', 'media-category' ).'</p>';
 				}
 			}
 		}
