@@ -3,8 +3,8 @@ Contributors: wbcomdesigns,vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: woocommerce, price
 Requires at least: 3.0.1
-Tested up to: 4.7
-Stable tag: 4.7
+Tested up to: 5.2.4
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,8 @@ Just like other post types categories, you have assign any media to any category
 
 == Changelog ==
 
+= 1.1.0 =
+* Fix: Translation fixes 
 = 1.0.1 =
 * Fix: Change Media Category bulk action bottom filter not working. (#2)
 * Fix: Translation issue fixes. (#4)
