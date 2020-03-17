@@ -44,12 +44,12 @@ class Wp_Media_Category_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of this plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 		add_filter( 'body_class', array( $this, 'wpmc_add_body_class_for_video' ) );
 	}
 
@@ -94,14 +94,14 @@ class Wp_Media_Category_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ($pagenow == 'upload.php') {
+		if ( $pagenow == 'upload.php' ) {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-media-category-admin.js', array( 'jquery' ), $this->version, false );
 			wp_localize_script(
 				$this->plugin_name,
 				'wpmc_admin_js',
 				array(
-					'ajax_url' => admin_url('admin-ajax.php'),
-					'spinner_url' => includes_url().'/images/spinner.gif',
+					'ajax_url'    => admin_url( 'admin-ajax.php' ),
+					'spinner_url' => includes_url() . '/images/spinner.gif',
 				)
 			);
 		}
@@ -112,27 +112,27 @@ class Wp_Media_Category_Admin {
 	 */
 	public function wpmc_create_media_taxonomy() {
 		$labels = array(
-			'name'              => __('Media Categories', 'media-category'),
-			'singular_name'     => __('Media Category', 'media-category'),
-			'search_items'      => __('Search Media Categories', 'media-category'),
-			'all_items'         => __('All Media Categories', 'media-category'),
-			'change_term_item'         => __('Change Media Category Media Categories', 'media-category'),
-			'update_item'       => __('Update Media Category', 'media-category'),
-			'add_new_item'      => __('Add New Media Category', 'media-category'),
-			'new_item_name'     => __('New Media Category Name', 'media-category'),
-			'menu_name'         => __('Media Category', 'media-category'),
+			'name'             => __( 'Media Categories', 'media-category' ),
+			'singular_name'    => __( 'Media Category', 'media-category' ),
+			'search_items'     => __( 'Search Media Categories', 'media-category' ),
+			'all_items'        => __( 'All Media Categories', 'media-category' ),
+			'change_term_item' => __( 'Change Media Category Media Categories', 'media-category' ),
+			'update_item'      => __( 'Update Media Category', 'media-category' ),
+			'add_new_item'     => __( 'Add New Media Category', 'media-category' ),
+			'new_item_name'    => __( 'New Media Category Name', 'media-category' ),
+			'menu_name'        => __( 'Media Category', 'media-category' ),
 		);
 
 		$args = array(
-			'hierarchical'      => true,
-			'labels'            => $labels,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'update_count_callback' =>'_update_generic_term_count',
-			'query_var'         => true,
-			'rewrite'           => array('slug' => 'media-category'),
+			'hierarchical'          => true,
+			'labels'                => $labels,
+			'show_ui'               => true,
+			'show_admin_column'     => true,
+			'update_count_callback' => '_update_generic_term_count',
+			'query_var'             => true,
+			'rewrite'               => array( 'slug' => 'media-category' ),
 		);
-		register_taxonomy('media-category', array('attachment'), $args);
+		register_taxonomy( 'media-category', array( 'attachment' ), $args );
 	}
 
 	/**
@@ -140,8 +140,8 @@ class Wp_Media_Category_Admin {
 	 */
 	public function wpmc_bulk_change_term_media_notices() {
 		global $media_type, $pagenow;
-		if ($pagenow == 'upload.php' && isset($_REQUEST['change_term']) && (int) $_REQUEST['change_term']) {
-			$message = sprintf(_n('Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media-category'), number_format_i18n($_REQUEST['change_term']));
+		if ( $pagenow == 'upload.php' && isset( $_REQUEST['change_term'] ) && (int) $_REQUEST['change_term'] ) {
+			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media-category' ), number_format_i18n( $_REQUEST['change_term'] ) );
 			echo "<div class=\"updated\"><p>{$message}</p></div>";
 		}
 	}
@@ -150,136 +150,88 @@ class Wp_Media_Category_Admin {
 	 *
 	 */
 	public function wpmc_list_terms() {
-		$terms = get_terms(array(
-			'taxonomy' => 'media-category',
-			'hide_empty' => false,
-		));
-		
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'media-category',
+				'hide_empty' => false,
+			)
+		);
+
 		echo '<select class="terms_form" name="terms" id="terms_cat">';
-		
-			foreach ($terms as $term => $term_obj) {
-				echo "<option value='$term_obj->name'>$term_obj->name</option>\n";
-			}
-		
-		echo'</select>';
+
+		foreach ( $terms as $term => $term_obj ) {
+			echo "<option value='$term_obj->name'>$term_obj->name</option>\n";
+		}
+
+		echo '</select>';
 		die;
 	}
 
 	public function wpmc_add_media_category_bulk_action( $bulk_actions ) {
-		$bulk_actions['change_term'] = __('Change Media Category', 'media-category');
+		$bulk_actions['change_term'] = __( 'Change Media Category', 'media-category' );
 		return $bulk_actions;
 	}
 
-	function wpmc_media_category_bulk_action_handler( $redirect_to, $action_name, $post_ids ) { 
-		if ( 'change_term' === $action_name ) { 
-			if (isset($_GET['terms'])) {
-				$terms = sanitize_text_field($_GET['terms']);
+	function wpmc_media_category_bulk_action_handler( $redirect_to, $action_name, $post_ids ) {
+		if ( 'change_term' === $action_name ) {
+			if ( isset( $_GET['terms'] ) ) {
+				$terms    = sanitize_text_field( $_GET['terms'] );
 				$taxonomy = 'media-category';
-				foreach ( $post_ids as $post_id ) { 
-					$post = get_post($post_id); 
-					wp_set_object_terms($post_id, $terms, $taxonomy);
+				foreach ( $post_ids as $post_id ) {
+					$post = get_post( $post_id );
+					wp_set_object_terms( $post_id, $terms, $taxonomy );
 				}
-			} 
-			$redirect_to = add_query_arg( 'bulk_media_category_processed', count( $post_ids ), $redirect_to ); 
-			return $redirect_to; 
+			}
+			$redirect_to = add_query_arg( 'bulk_media_category_processed', count( $post_ids ), $redirect_to );
+			return $redirect_to;
 		}
 		return $redirect_to;
 	}
 
 	public function wpmc_updated_media_category() {
-		if ( ! empty( $_REQUEST['bulk_media_category_processed'] ) ) { 
+		if ( ! empty( $_REQUEST['bulk_media_category_processed'] ) ) {
 			$posts_count = intval( $_REQUEST['bulk_media_category_processed'] );
-			$post_text = ( $posts_count > 1 ) ? __('posts','media-category') : __('post','media-category'); 
-			printf( '
-				' . __( '<div class="notice notice-info is-dismissible"><p>Updated media category for %s %s.</p></div>', 'media-category' ) . ' ', $posts_count, $post_text );
+			$post_text   = ( $posts_count > 1 ) ? __( 'posts', 'media-category' ) : __( 'post', 'media-category' );
+			printf(
+				'
+				' . __( '<div class="notice notice-info is-dismissible"><p>Updated media category for %1$s %2$s.</p></div>', 'media-category' ) . ' ',
+				$posts_count,
+				$post_text
+			);
 		}
-	} 
+	}
 
 	public function wpmc_add_media_category_filter() {
 		$scr = get_current_screen();
-	    if ( $scr->base !== 'upload' ) return;
-		$taxonomies = array('media-category');
+		if ( $scr->base !== 'upload' ) {
+			return;
+		}
+		$taxonomies = array( 'media-category' );
 
-		foreach ($taxonomies as $tax_slug) {
-			$tax_obj = get_taxonomy($tax_slug);
+		foreach ( $taxonomies as $tax_slug ) {
+			$tax_obj  = get_taxonomy( $tax_slug );
 			$tax_name = $tax_obj->labels->name;
-			$terms = get_terms($tax_slug);
-			if(count($terms) > 0) {
+			$terms    = get_terms( $tax_slug );
+			if ( count( $terms ) > 0 ) {
 				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
-				echo "<option value=''>".__( 'Show all', 'media-category')." $tax_name</option>";
-				foreach ($terms as $term) { 
+				echo "<option value=''>" . __( 'Show all', 'media-category' ) . " $tax_name</option>";
+				foreach ( $terms as $term ) {
 					printf(
 						'<option value="%1$s" %2$s>%3$s (%4$s)</option>',
 						$term->slug,
-						( ( isset( $_GET[$tax_slug] ) && ( $_GET[$tax_slug] == $term->slug ) ) ? ' selected="selected"' : '' ),
+						( ( isset( $_GET[ $tax_slug ] ) && ( $_GET[ $tax_slug ] == $term->slug ) ) ? ' selected="selected"' : '' ),
 						$term->name,
 						$term->count
 					);
 				}
-				echo "</select>";
-			}
-		}
-	}
-
-	/**
-	 *
-	 */
-	public function wpmc_media_category_shortcode( $atts ) {
-		echo "<h3>".$atts['category']."</h3>";
-		if( !term_exists( $atts['category'], 'media-category' ) ) {
-			echo '<p class="wpmc-media-error">'.__( 'No such category exists!', 'media-category' ).'</p>';
-		} else {
-			if ( ! empty($atts['category'])) {
-				$wp_media = get_posts(
-					array(
-						'post_type' => 'attachment',
-						'numberposts' => -1,
-						'tax_query' => array(
-							array(
-								'taxonomy' => 'media-category',
-								'field' => 'name',
-								'terms' => $atts['category'],
-								'include_children' => true
-							)
-						)
-					)
-				);
-
-				if ( !empty( $wp_media ) ) {
-					echo '<div class="wpmc-media-display">';
-					foreach ( $wp_media as $key => $media ) {
-						$media_url = wp_get_attachment_url( $media->ID );
-						if( strpos( $media->post_mime_type, 'image' ) !== false ) {
-							echo '<div class="wpmc-single-media">';
-							echo '<a title="'.$media->post_title.'" href="'.$media->guid.'" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
-							echo '<img src='.$media->guid.' alt="'.$media->post_title.'" />';
-							echo '</a>';
-							echo '</div>';
-						} else if( strpos( $media->post_mime_type, 'video' ) !== false ) {
-							echo '<div class="wpmc-single-media-video">';
-							echo '<video controls="controls">';
-							echo '<source src="'.$media_url.'">';
-							echo '</video>';
-							echo '</div>';
-						} else if( strpos( $media->post_mime_type, 'audio' ) !== false ) {
-							echo '<div class="wpmc-single-media-audio">';
-							echo '<audio controls="controls">';
-							echo '<source src="'.$media_url.'">';
-							echo '</audio>';
-							echo '</div>';
-						}
-					} //end loop for printing media
-					echo "</div>";
-				} else {
-					echo '<p class="wpmc-media-error">'.__( 'Sorry no media found in this category.', 'media-category' ).'</p>';
-				}
+				echo '</select>';
 			}
 		}
 	}
 
 	public function wpmc_add_body_class_for_video( $c ) {
 		global $post;
-		if( isset($post->post_content) && has_shortcode( $post->post_content, 'wbmedia' ) ) {
+		if ( isset( $post->post_content ) && has_shortcode( $post->post_content, 'wbmedia' ) ) {
 			$c[] = 'wbmedia-shortcode';
 		}
 		return $c;

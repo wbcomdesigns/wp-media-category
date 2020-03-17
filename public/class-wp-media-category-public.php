@@ -44,13 +44,13 @@ class Wp_Media_Category_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -98,5 +98,72 @@ class Wp_Media_Category_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-media-category-public.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'wpmc-lightbox-js', plugin_dir_url( __FILE__ ) . 'js/jquery.littlelightbox.js', array( 'jquery' ) );
+	}
+
+	/**
+	 * Shortcode for media category.
+	 */
+	public function wpmc_media_category_shortcode( $attrs = array(), $content = null, $tag = '' ) {
+
+		$atts = array_change_key_case( (array) $attrs, CASE_LOWER );
+		$atts = shortcode_atts(
+			array(
+				'category' => '',
+			),
+			$attrs,
+			$tag
+		);
+		ob_start();
+		echo '<h3>' . esc_html__( ucfirst( $atts['category'] ), 'media-category' ) . '</h3>';
+		if ( ! term_exists( $atts['category'], 'media-category' ) ) {
+			echo '<p class="wpmc-media-error">' . __( 'No such category exists!', 'media-category' ) . '</p>';
+		} else {
+			if ( ! empty( $atts['category'] ) ) {
+				$wp_media = get_posts(
+					array(
+						'post_type'   => 'attachment',
+						'numberposts' => -1,
+						'tax_query'   => array(
+							array(
+								'taxonomy'         => 'media-category',
+								'field'            => 'name',
+								'terms'            => $atts['category'],
+								'include_children' => true,
+							),
+						),
+					)
+				);
+
+				if ( ! empty( $wp_media ) ) {
+					echo '<div class="wpmc-media-display">';
+					foreach ( $wp_media as $key => $media ) {
+						$media_url = wp_get_attachment_url( $media->ID );
+						if ( strpos( $media->post_mime_type, 'image' ) !== false ) {
+							echo '<div class="wpmc-single-media">';
+							echo '<a title="' . $media->post_title . '" href="' . $media->guid . '" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
+							echo '<img src=' . $media->guid . ' alt="' . $media->post_title . '" />';
+							echo '</a>';
+							echo '</div>';
+						} elseif ( strpos( $media->post_mime_type, 'video' ) !== false ) {
+							echo '<div class="wpmc-single-media-video">';
+							echo '<video controls="controls">';
+							echo '<source src="' . $media_url . '">';
+							echo '</video>';
+							echo '</div>';
+						} elseif ( strpos( $media->post_mime_type, 'audio' ) !== false ) {
+							echo '<div class="wpmc-single-media-audio">';
+							echo '<audio controls="controls">';
+							echo '<source src="' . $media_url . '">';
+							echo '</audio>';
+							echo '</div>';
+						}
+					} //end loop for printing media
+					echo '</div>';
+				} else {
+					echo '<p class="wpmc-media-error">' . __( 'Sorry no media found in this category.', 'media-category' ) . '</p>';
+				}
+			}
+		}
+		return ob_get_clean();
 	}
 }
