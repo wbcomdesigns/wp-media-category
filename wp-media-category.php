@@ -25,11 +25,11 @@
  * Domain Path:       /languages
  */
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( !defined( 'WPMC_TEXT_DOMAIN' ) ) {
+if ( ! defined( 'WPMC_TEXT_DOMAIN' ) ) {
 	define( 'WPMC_TEXT_DOMAIN', 'media-category' );
 }
 
@@ -70,12 +70,12 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-media-category.php';
  * @since    1.0.0
  */
 function run_wp_media_category() {
-	//Define constants
-	if ( !defined( 'WPMC_PLUGIN_PATH' ) ) {
+	// Define constants
+	if ( ! defined( 'WPMC_PLUGIN_PATH' ) ) {
 		define( 'WPMC_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 	}
 
-	if ( !defined( 'WPMC_PLUGIN_URL' ) ) {
+	if ( ! defined( 'WPMC_PLUGIN_URL' ) ) {
 		define( 'WPMC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 	}
 

@@ -114,6 +114,11 @@ class Wp_Media_Category {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-media-category-admin.php';
 
 		/**
+		 * The class responsible for defining all actions that occur in the admin area.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin-review.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
