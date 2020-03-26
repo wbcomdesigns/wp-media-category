@@ -130,11 +130,11 @@ class Wp_Media_Category_Admin {
 			'public'                => true,
 			'show_in_nav_menus'     => true,
 			'query_var'             => true,
-			'rewrite'               => array( 'slug' => 'media_category' ),
+			'rewrite'               => array( 'slug' => 'media-category' ),
 			'update_count_callback' => '_update_generic_term_count',
 			'labels'                => $labels,
 		);
-		register_taxonomy( 'media_category', array( 'attachment' ), $args );
+		register_taxonomy( 'media-category', array( 'attachment' ), $args );
 	}
 
 	/**
@@ -208,12 +208,14 @@ class Wp_Media_Category_Admin {
 		if ( $scr->base !== 'upload' ) {
 			return;
 		}
+
 		$taxonomies = array( 'media-category' );
 
 		foreach ( $taxonomies as $tax_slug ) {
 			$tax_obj  = get_taxonomy( $tax_slug );
 			$tax_name = $tax_obj->labels->name;
 			$terms    = get_terms( $tax_slug );
+
 			if ( count( $terms ) > 0 ) {
 				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
 				echo "<option value=''>" . __( 'Show all', 'media-category' ) . " $tax_name</option>";
