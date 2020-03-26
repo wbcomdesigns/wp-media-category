@@ -127,7 +127,7 @@ class Wp_Media_Category_Admin {
 			'hierarchical'          => true,
 			'show_ui'               => true,
 			'show_admin_column'     => true,
-			'public'                => true,
+			'public'                => false,
 			'show_in_nav_menus'     => true,
 			'query_var'             => true,
 			'rewrite'               => array( 'slug' => 'media-category' ),
