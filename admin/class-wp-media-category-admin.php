@@ -125,14 +125,16 @@ class Wp_Media_Category_Admin {
 
 		$args = array(
 			'hierarchical'          => true,
-			'labels'                => $labels,
 			'show_ui'               => true,
 			'show_admin_column'     => true,
-			'update_count_callback' => '_update_generic_term_count',
+			'public'                => true,
+			'show_in_nav_menus'     => true,
 			'query_var'             => true,
-			'rewrite'               => array( 'slug' => 'media-category' ),
+			'rewrite'               => array( 'slug' => 'media_category' ),
+			'update_count_callback' => '_update_generic_term_count',
+			'labels'                => $labels,
 		);
-		register_taxonomy( 'media-category', array( 'attachment' ), $args );
+		register_taxonomy( 'media_category', array( 'attachment' ), $args );
 	}
 
 	/**
