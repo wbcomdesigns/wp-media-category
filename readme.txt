@@ -3,8 +3,8 @@ Contributors: wbcomdesigns,vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: woocommerce, price
 Requires at least: 3.0.1
-Tested up to: 5.2.4
-Stable tag: 1.1.0
+Tested up to: 5.3.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,9 @@ Just like other post types categories, you have assign any media to any category
 3. The screenshot shows the media list with assigned category showing where the shortcode is executing and corresponds to screenshot-3.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 1.2.0 =
+* Fix: (#10) Remove view link from edit-tags.php
+* Fix: (#5) Add an admin review notice
 
 = 1.1.0 =
 * Fix: Translation fixes 
