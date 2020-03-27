@@ -1,14 +1,14 @@
-# Copyright (C) 2019
+# Copyright (C) 2020
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-18 08:13:58+00:00\n"
+"POT-Creation-Date: 2020-03-27 08:04:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Varun Dubey\n"
 "Language-Team: Wbcom Designs\n"
 "Language: en\n"
@@ -23,6 +23,87 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: admin/class-admin-review.php:88
+#. translators: Number of years
+msgid "%s years"
+msgstr ""
+
+#: admin/class-admin-review.php:90
+msgid "a year"
+msgstr ""
+
+#: admin/class-admin-review.php:97
+#. translators: Number of weeks
+msgid "%s weeks"
+msgstr ""
+
+#: admin/class-admin-review.php:99
+msgid "a week"
+msgstr ""
+
+#: admin/class-admin-review.php:106
+#. translators: Number of days
+msgid "%s days"
+msgstr ""
+
+#: admin/class-admin-review.php:108
+msgid "a day"
+msgstr ""
+
+#: admin/class-admin-review.php:115
+#. translators: Number of hours
+msgid "%s hours"
+msgstr ""
+
+#: admin/class-admin-review.php:117
+msgid "an hour"
+msgstr ""
+
+#: admin/class-admin-review.php:124
+#. translators: Number of minutes
+msgid "%s minutes"
+msgstr ""
+
+#: admin/class-admin-review.php:126
+msgid "a minute"
+msgstr ""
+
+#: admin/class-admin-review.php:133
+#. translators: Number of seconds
+msgid "%s seconds"
+msgstr ""
+
+#: admin/class-admin-review.php:135
+msgid "a second"
+msgstr ""
+
+#: admin/class-admin-review.php:271
+msgid "BuddyPress Lock"
+msgstr ""
+
+#: admin/class-admin-review.php:274
+msgid "Are you enjoying WordPress Media Category?"
+msgstr ""
+
+#: admin/class-admin-review.php:277
+#. translators: 1. Name, 2. Time
+msgid ""
+"You have been using %1$s for %2$s now! Mind leaving a quick review and let "
+"me know know what you think of the plugin? I'd really appreciate it!"
+msgstr ""
+
+#: admin/class-admin-review.php:281
+msgid "Leave a Review"
+msgstr ""
+
+#: admin/class-admin-review.php:282
+msgid "No thanks / I already have"
+msgstr ""
+
+#: admin/class-admin-review.php:311
+msgid "WordPress Media Category"
+msgstr ""
 
 #: admin/class-wp-media-category-admin.php:115
 msgid "Media Categories"
@@ -57,38 +138,38 @@ msgstr ""
 msgid "New Media Category Name"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:144
+#: admin/class-wp-media-category-admin.php:146
 msgid "Attachment change_term."
 msgid_plural "%s attachments category changed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-wp-media-category-admin.php:169
+#: admin/class-wp-media-category-admin.php:173
 msgid "Change Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:192
+#: admin/class-wp-media-category-admin.php:196
 msgid "posts"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:192
+#: admin/class-wp-media-category-admin.php:196
 msgid "post"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:194
+#: admin/class-wp-media-category-admin.php:199
 msgid ""
 "<div class=\"notice notice-info is-dismissible\"><p>Updated media category "
-"for %s %s.</p></div>"
+"for %1$s %2$s.</p></div>"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:209
+#: admin/class-wp-media-category-admin.php:221
 msgid "Show all"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:230
+#: public/class-wp-media-category-public.php:119
 msgid "No such category exists!"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:274
+#: public/class-wp-media-category-public.php:163
 msgid "Sorry no media found in this category."
 msgstr ""
