@@ -50,6 +50,7 @@ class Wp_Media_Category_Admin {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+		add_filter( 'admin_body_class', array( $this, 'wpmc_add_body_class' ) );
 		add_filter( 'body_class', array( $this, 'wpmc_add_body_class_for_video' ) );
 	}
 
@@ -106,6 +107,15 @@ class Wp_Media_Category_Admin {
 				)
 			);
 		}
+	}
+
+	function wpmc_add_body_class( $classes ) {
+		global $pagenow;
+		if ( $pagenow == 'post.php' ) {
+			$classes .= 'wp-media-category';
+		}
+		return $classes;
+
 	}
 
 	/**
