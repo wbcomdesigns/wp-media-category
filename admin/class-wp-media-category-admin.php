@@ -102,6 +102,7 @@ class Wp_Media_Category_Admin {
 				array(
 					'ajax_url'    => admin_url( 'admin-ajax.php' ),
 					'spinner_url' => includes_url() . '/images/spinner.gif',
+					'terms'       => get_terms( 'media_category', array( 'hide_empty' => false ) ),
 				)
 			);
 		}
@@ -130,11 +131,11 @@ class Wp_Media_Category_Admin {
 			'public'                => false,
 			'show_in_nav_menus'     => true,
 			'query_var'             => true,
-			'rewrite'               => array( 'slug' => 'media-category' ),
+			'rewrite'               => array( 'slug' => 'media_category' ),
 			'update_count_callback' => '_update_generic_term_count',
 			'labels'                => $labels,
 		);
-		register_taxonomy( 'media-category', array( 'attachment' ), $args );
+		register_taxonomy( 'media_category', array( 'attachment' ), $args );
 	}
 
 	/**
@@ -143,7 +144,7 @@ class Wp_Media_Category_Admin {
 	public function wpmc_bulk_change_term_media_notices() {
 		global $media_type, $pagenow;
 		if ( $pagenow == 'upload.php' && isset( $_REQUEST['change_term'] ) && (int) $_REQUEST['change_term'] ) {
-			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media-category' ), number_format_i18n( $_REQUEST['change_term'] ) );
+			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media_category' ), number_format_i18n( $_REQUEST['change_term'] ) );
 			echo "<div class=\"updated\"><p>{$message}</p></div>";
 		}
 	}
@@ -154,7 +155,7 @@ class Wp_Media_Category_Admin {
 	public function wpmc_list_terms() {
 		$terms = get_terms(
 			array(
-				'taxonomy'   => 'media-category',
+				'taxonomy'   => 'media_category',
 				'hide_empty' => false,
 			)
 		);
@@ -178,7 +179,7 @@ class Wp_Media_Category_Admin {
 		if ( 'change_term' === $action_name ) {
 			if ( isset( $_GET['terms'] ) ) {
 				$terms    = sanitize_text_field( $_GET['terms'] );
-				$taxonomy = 'media-category';
+				$taxonomy = 'media_category';
 				foreach ( $post_ids as $post_id ) {
 					$post = get_post( $post_id );
 					wp_set_object_terms( $post_id, $terms, $taxonomy );
@@ -209,7 +210,7 @@ class Wp_Media_Category_Admin {
 			return;
 		}
 
-		$taxonomies = array( 'media-category' );
+		$taxonomies = array( 'media_category' );
 
 		foreach ( $taxonomies as $tax_slug ) {
 			$tax_obj  = get_taxonomy( $tax_slug );

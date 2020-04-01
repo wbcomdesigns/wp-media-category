@@ -125,7 +125,7 @@ class Wp_Media_Category_Public {
 						'numberposts' => -1,
 						'tax_query'   => array(
 							array(
-								'taxonomy'         => 'media-category',
+								'taxonomy'         => 'media_category',
 								'field'            => 'name',
 								'terms'            => $atts['category'],
 								'include_children' => true,
