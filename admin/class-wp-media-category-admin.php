@@ -95,7 +95,8 @@ class Wp_Media_Category_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( $pagenow == 'upload.php' || $pagenow == 'post.php' ) {
+
+		if ( $pagenow == 'upload.php' || $pagenow == 'post.php' || $pagenow == 'post-new.php' ) {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-media-category-admin.js', array( 'jquery' ), $this->version, false );
 			wp_localize_script(
 				$this->plugin_name,
@@ -111,7 +112,7 @@ class Wp_Media_Category_Admin {
 
 	function wpmc_add_body_class( $classes ) {
 		global $pagenow;
-		if ( $pagenow == 'post.php' ) {
+		if ( $pagenow == 'post.php' || $pagenow == 'post-new.php' ) {
 			$classes .= 'wp-media-category';
 		}
 		return $classes;
