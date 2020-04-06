@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-27 08:04:03+00:00\n"
+"POT-Creation-Date: 2020-04-06 22:55:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -105,64 +105,64 @@ msgstr ""
 msgid "WordPress Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:115
+#: admin/class-wp-media-category-admin.php:127
 msgid "Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:116
-#: admin/class-wp-media-category-admin.php:123
+#: admin/class-wp-media-category-admin.php:128
+#: admin/class-wp-media-category-admin.php:135
 msgid "Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:117
+#: admin/class-wp-media-category-admin.php:129
 msgid "Search Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:118
+#: admin/class-wp-media-category-admin.php:130
 msgid "All Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:119
+#: admin/class-wp-media-category-admin.php:131
 msgid "Change Media Category Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:120
+#: admin/class-wp-media-category-admin.php:132
 msgid "Update Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:121
+#: admin/class-wp-media-category-admin.php:133
 msgid "Add New Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:122
+#: admin/class-wp-media-category-admin.php:134
 msgid "New Media Category Name"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:146
+#: admin/class-wp-media-category-admin.php:158
 msgid "Attachment change_term."
 msgid_plural "%s attachments category changed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-wp-media-category-admin.php:173
+#: admin/class-wp-media-category-admin.php:185
 msgid "Change Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:196
+#: admin/class-wp-media-category-admin.php:208
 msgid "posts"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:196
+#: admin/class-wp-media-category-admin.php:208
 msgid "post"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:199
+#: admin/class-wp-media-category-admin.php:211
 msgid ""
 "<div class=\"notice notice-info is-dismissible\"><p>Updated media category "
 "for %1$s %2$s.</p></div>"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:221
+#: admin/class-wp-media-category-admin.php:233
 msgid "Show all"
 msgstr ""
 

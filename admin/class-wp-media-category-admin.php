@@ -155,7 +155,7 @@ class Wp_Media_Category_Admin {
 	public function wpmc_bulk_change_term_media_notices() {
 		global $media_type, $pagenow;
 		if ( $pagenow == 'upload.php' && isset( $_REQUEST['change_term'] ) && (int) $_REQUEST['change_term'] ) {
-			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media_category' ), number_format_i18n( $_REQUEST['change_term'] ) );
+			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media-category' ), number_format_i18n( $_REQUEST['change_term'] ) );
 			echo "<div class=\"updated\"><p>{$message}</p></div>";
 		}
 	}
