@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -34,7 +33,9 @@ class Wp_Media_Category_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-		'media-category', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			'media-category',
+			false,
+			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
 	}
 

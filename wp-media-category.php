@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -24,6 +23,7 @@
  * Text Domain:       media-category
  * Domain Path:       /languages
  */
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -70,7 +70,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-media-category.php';
  * @since    1.0.0
  */
 function run_wp_media_category() {
-	// Define constants
+	// Define constants.
 	if ( ! defined( 'WPMC_PLUGIN_PATH' ) ) {
 		define( 'WPMC_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 	}
