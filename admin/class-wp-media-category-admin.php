@@ -209,7 +209,9 @@ class Wp_Media_Category_Admin {
 			$post_text   = ( $posts_count > 1 ) ? __( 'posts', 'media-category' ) : __( 'post', 'media-category' );
 			printf(
 				'
-				' . esc_html__( '<div class="notice notice-info is-dismissible"><p>Updated media category for %1$s %2$s.</p></div>', 'media-category' ) . ' ',
+				'
+				/* translators: %1$s and %2$s is replaced with media_category */
+				. esc_html__( '<div class="notice notice-info is-dismissible"><p>Updated media category for %1$s %2$s.</p></div>', 'media-category' ) . ' ',
 				wp_kses_post( $posts_count ),
 				wp_kses_post( $post_text )
 			);
@@ -231,7 +233,7 @@ class Wp_Media_Category_Admin {
 
 			if ( count( $terms ) > 0 ) {
 				echo "<select name='" . esc_attr( $tax_slug ) . "' id='" . esc_attr( $tax_slug ) . "' class='postform'>";
-				echo "<option value=''>" . esc_html__( 'Show all', 'media-category' ) . " esc_html( $tax_name )</option>";
+				echo "<option value=''>'" . esc_html__( 'Show all', 'media-category' ) . "' '" . esc_html( $tax_name ) . "'</option>";
 				foreach ( $terms as $term ) {
 					printf(
 						'<option value="%1$s" %2$s>%3$s (%4$s)</option>',
