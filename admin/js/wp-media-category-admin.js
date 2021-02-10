@@ -44,7 +44,7 @@
 
 jQuery(document).ready(function() {
   'use strict';
-  jQuery("#bulk-action-selector-top").live('change', function() {
+  jQuery("#bulk-action-selector-top").on('change', function() {
     var selectVal = jQuery('#bulk-action-selector-top :selected').val();
     if (selectVal == 'change_term') {
       var loaderContainer = jQuery('<span/>', {
