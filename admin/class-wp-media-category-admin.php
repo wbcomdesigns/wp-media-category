@@ -109,7 +109,7 @@ class Wp_Media_Category_Admin {
 		}
 	}
 
-	function wpmc_add_body_class( $classes ) {
+	public function wpmc_add_body_class( $classes ) {
 		global $pagenow;
 		if ( $pagenow == 'post.php' || $pagenow == 'post-new.php' ) {
 			$classes .= 'wp-media-category';
@@ -155,7 +155,7 @@ class Wp_Media_Category_Admin {
 		global $media_type, $pagenow;
 		if ( $pagenow == 'upload.php' && isset( $_REQUEST['change_term'] ) && (int) $_REQUEST['change_term'] ) {
 			/* translators: %s is replaced with change_term */
-			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media-category' ), number_format_i18n( $_REQUEST['change_term'] ) );
+			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', wp_unslash( $_REQUEST['change_term'] ), 'media-category' ), number_format_i18n( wp_unslash( $_REQUEST['change_term'] ) ) );
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo "<div class=\"updated\"><p>{$message}</p></div>";
 		}
@@ -187,10 +187,10 @@ class Wp_Media_Category_Admin {
 		return $bulk_actions;
 	}
 
-	function wpmc_media_category_bulk_action_handler( $redirect_to, $action_name, $post_ids ) {
+	public function wpmc_media_category_bulk_action_handler( $redirect_to, $action_name, $post_ids ) {
 		if ( 'change_term' === $action_name ) {
 			if ( isset( $_GET['terms'] ) ) {
-				$terms    = sanitize_text_field( $_GET['terms'] );
+				$terms    = sanitize_text_field( wp_unslash( $_GET['terms'] ) );
 				$taxonomy = 'media_category';
 				foreach ( $post_ids as $post_id ) {
 					$post = get_post( $post_id );
