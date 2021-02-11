@@ -44,7 +44,7 @@
 
 jQuery(document).ready(function() {
   'use strict';
-  jQuery("#bulk-action-selector-top").on('change', function() {
+  jQuery("body").on('change', '#bulk-action-selector-top', function() {
     var selectVal = jQuery('#bulk-action-selector-top :selected').val();
     if (selectVal == 'change_term') {
       var loaderContainer = jQuery('<span/>', {
@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
     }
   });
 
-  jQuery("#bulk-action-selector-bottom").on('change', function() {
+  jQuery("body").on('change', '#bulk-action-selector-bottom',function() {
     var selectVal = jQuery('#bulk-action-selector-bottom :selected').val();
     if (selectVal == 'change_term') {
       var loaderContainer = jQuery('<span/>', {
