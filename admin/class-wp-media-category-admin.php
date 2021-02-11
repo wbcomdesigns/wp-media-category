@@ -197,7 +197,7 @@ class Wp_Media_Category_Admin {
 					wp_set_object_terms( $post_id, $terms, $taxonomy );
 				}
 			}
-			$redirect_to = add_query_arg( 'bulk_media_category_processed', is_countable( $post_ids ), $redirect_to );
+			$redirect_to = add_query_arg( 'bulk_media_category_processed', count( $post_ids ), $redirect_to );
 			return $redirect_to;
 		}
 		return $redirect_to;
