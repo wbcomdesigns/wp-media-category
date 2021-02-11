@@ -211,7 +211,7 @@ class Wp_Media_Category_Admin {
 				'
 				'
 				/* translators: %1$s and %2$s is replaced with media_category */
-				. esc_html__( '<div class="notice notice-info is-dismissible"><p>Updated media category for %1$s %2$s.</p></div>', 'media-category' ) . ' ',
+				. wp_kses_post( __( '<div class="notice notice-info is-dismissible"><p>Updated media category for %1$s %2$s.</p></div>', 'media-category' ) ) . ' ',
 				wp_kses_post( $posts_count ),
 				wp_kses_post( $post_text )
 			);
