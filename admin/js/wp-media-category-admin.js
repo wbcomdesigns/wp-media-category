@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
     }
   });
 
-  jQuery("#bulk-action-selector-bottom").live('change', function() {
+  jQuery("#bulk-action-selector-bottom").on('change', function() {
     var selectVal = jQuery('#bulk-action-selector-bottom :selected').val();
     if (selectVal == 'change_term') {
       var loaderContainer = jQuery('<span/>', {
