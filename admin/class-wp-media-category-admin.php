@@ -175,7 +175,7 @@ class Wp_Media_Category_Admin {
 		echo '<select class="terms_form" name="terms" id="terms_cat">';
 
 		foreach ( $terms as $term => $term_obj ) {
-			echo "<option value='" . esc_attr( $term_obj->name ) . "'> '" . esc_html( $term_obj->name ) . "'</option>\n";
+			echo "<option value='" . esc_attr( $term_obj->name ) . "'> " . esc_html( $term_obj->name ) . "</option>\n";
 		}
 
 		echo '</select>';
