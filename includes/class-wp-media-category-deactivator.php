@@ -9,27 +9,31 @@
  * @subpackage Wp_Media_Category/includes
  */
 
-/**
- * Fired during plugin deactivation.
- *
- * This class defines all code necessary to run during the plugin's deactivation.
- *
- * @since      1.0.0
- * @package    Wp_Media_Category
- * @subpackage Wp_Media_Category/includes
- * @author     Wbcom Designs <admin@wbcomdesigns.com>
- */
-class Wp_Media_Category_Deactivator {
+if ( ! class_exists( 'Wp_Media_Category_Deactivator' ) ) :
 
 	/**
-	 * Short Description. (use period)
+	 * Fired during plugin deactivation.
 	 *
-	 * Long Description.
+	 * This class defines all code necessary to run during the plugin's deactivation.
 	 *
-	 * @since    1.0.0
+	 * @since      1.0.0
+	 * @package    Wp_Media_Category
+	 * @subpackage Wp_Media_Category/includes
+	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
 	 */
-	public static function deactivate() {
+	class Wp_Media_Category_Deactivator {
+
+		/**
+		 * Short Description. (use period)
+		 *
+		 * Long Description.
+		 *
+		 * @since    1.0.0
+		 */
+		public static function deactivate() {
+
+		}
 
 	}
 
-}
+endif;
