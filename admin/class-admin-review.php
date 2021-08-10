@@ -268,7 +268,7 @@ if ( ! class_exists( 'WP_Media_Category_Feedback' ) ) :
 			<div class="notice updated media-category-notice">
 				<div class="media-category-notice-inner">
 					<div class="media-category-notice-icon">
-						<img src="<?php echo WPMC_PLUGIN_URL . '/admin/images/wbcom.png'; ?>" alt="<?php echo esc_attr__( 'BuddyPress Lock', 'media-category' ); ?>" />
+						<img src="<?php echo esc_url( WPMC_PLUGIN_URL ) . '/admin/images/wbcom.png'; ?>" alt="<?php echo esc_attr__( 'BuddyPress Lock', 'media-category' ); ?>" />
 					</div>
 					<div class="media-category-notice-content">
 						<h3><?php echo esc_html__( 'Are you enjoying WordPress Media Category?', 'media-category' ); ?></h3>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -116,7 +115,7 @@ class Wp_Media_Category_Public {
 		ob_start();
 		echo '<h3>' . esc_html__( ucfirst( $atts['category'] ), 'media-category' ) . '</h3>';
 		if ( ! term_exists( $atts['category'], 'media-category' ) ) {
-			echo '<p class="wpmc-media-error">' . __( 'No such category exists!', 'media-category' ) . '</p>';
+			echo '<p class="wpmc-media-error">' . esc_html__( 'No such category exists!', 'media-category' ) . '</p>';
 		} else {
 			if ( ! empty( $atts['category'] ) ) {
 				$wp_media = get_posts(
@@ -140,27 +139,27 @@ class Wp_Media_Category_Public {
 						$media_url = wp_get_attachment_url( $media->ID );
 						if ( strpos( $media->post_mime_type, 'image' ) !== false ) {
 							echo '<div class="wpmc-single-media">';
-							echo '<a title="' . $media->post_title . '" href="' . $media->guid . '" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
-							echo '<img src=' . $media->guid . ' alt="' . $media->post_title . '" />';
+							echo '<a title="' . esc_attr( $media->post_title ) . '" href="' . esc_url( $media->guid ) . '" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
+							echo '<img src=' . esc_url( $media->guid ) . ' alt="' . esc_attr( $media->post_title ) . '" />';
 							echo '</a>';
 							echo '</div>';
 						} elseif ( strpos( $media->post_mime_type, 'video' ) !== false ) {
 							echo '<div class="wpmc-single-media-video">';
 							echo '<video controls="controls">';
-							echo '<source src="' . $media_url . '">';
+							echo '<source src="' . esc_url( $media_url ) . '">';
 							echo '</video>';
 							echo '</div>';
 						} elseif ( strpos( $media->post_mime_type, 'audio' ) !== false ) {
 							echo '<div class="wpmc-single-media-audio">';
 							echo '<audio controls="controls">';
-							echo '<source src="' . $media_url . '">';
+							echo '<source src="' . esc_url( $media_url ) . '">';
 							echo '</audio>';
 							echo '</div>';
 						}
 					} //end loop for printing media
 					echo '</div>';
 				} else {
-					echo '<p class="wpmc-media-error">' . __( 'Sorry no media found in this category.', 'media-category' ) . '</p>';
+					echo '<p class="wpmc-media-error">' . esc_html__( 'Sorry no media found in this category.', 'media-category' ) . '</p>';
 				}
 			}
 		}

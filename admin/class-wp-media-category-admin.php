@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -110,7 +109,7 @@ class Wp_Media_Category_Admin {
 		}
 	}
 
-	function wpmc_add_body_class( $classes ) {
+	public function wpmc_add_body_class( $classes ) {
 		global $pagenow;
 		if ( $pagenow == 'post.php' || $pagenow == 'post-new.php' ) {
 			$classes .= 'wp-media-category';
@@ -155,7 +154,9 @@ class Wp_Media_Category_Admin {
 	public function wpmc_bulk_change_term_media_notices() {
 		global $media_type, $pagenow;
 		if ( $pagenow == 'upload.php' && isset( $_REQUEST['change_term'] ) && (int) $_REQUEST['change_term'] ) {
-			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', $_REQUEST['change_term'], 'media-category' ), number_format_i18n( $_REQUEST['change_term'] ) );
+			/* translators: %s is replaced with change_term */
+			$message = sprintf( _n( 'Attachment change_term.', '%s attachments category changed.', wp_unslash( $_REQUEST['change_term'] ), 'media-category' ), number_format_i18n( wp_unslash( $_REQUEST['change_term'] ) ) );
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo "<div class=\"updated\"><p>{$message}</p></div>";
 		}
 	}
@@ -174,7 +175,7 @@ class Wp_Media_Category_Admin {
 		echo '<select class="terms_form" name="terms" id="terms_cat">';
 
 		foreach ( $terms as $term => $term_obj ) {
-			echo "<option value='$term_obj->name'>$term_obj->name</option>\n";
+			echo "<option value='" . esc_attr( $term_obj->name ) . "'> " . esc_html( $term_obj->name ) . "</option>\n";
 		}
 
 		echo '</select>';
@@ -186,10 +187,10 @@ class Wp_Media_Category_Admin {
 		return $bulk_actions;
 	}
 
-	function wpmc_media_category_bulk_action_handler( $redirect_to, $action_name, $post_ids ) {
+	public function wpmc_media_category_bulk_action_handler( $redirect_to, $action_name, $post_ids ) {
 		if ( 'change_term' === $action_name ) {
 			if ( isset( $_GET['terms'] ) ) {
-				$terms    = sanitize_text_field( $_GET['terms'] );
+				$terms    = sanitize_text_field( wp_unslash( $_GET['terms'] ) );
 				$taxonomy = 'media_category';
 				foreach ( $post_ids as $post_id ) {
 					$post = get_post( $post_id );
@@ -208,9 +209,11 @@ class Wp_Media_Category_Admin {
 			$post_text   = ( $posts_count > 1 ) ? __( 'posts', 'media-category' ) : __( 'post', 'media-category' );
 			printf(
 				'
-				' . __( '<div class="notice notice-info is-dismissible"><p>Updated media category for %1$s %2$s.</p></div>', 'media-category' ) . ' ',
-				$posts_count,
-				$post_text
+				'
+				/* translators: %1$s and %2$s is replaced with media_category */
+				. wp_kses_post( __( '<div class="notice notice-info is-dismissible"><p>Updated media category for %1$s %2$s.</p></div>', 'media-category' ) ) . ' ',
+				wp_kses_post( $posts_count ),
+				wp_kses_post( $post_text )
 			);
 		}
 	}
@@ -229,15 +232,15 @@ class Wp_Media_Category_Admin {
 			$terms    = get_terms( $tax_slug );
 
 			if ( count( $terms ) > 0 ) {
-				echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
-				echo "<option value=''>" . __( 'Show all', 'media-category' ) . " $tax_name</option>";
+				echo "<select name='" . esc_attr( $tax_slug ) . "' id='" . esc_attr( $tax_slug ) . "' class='postform'>";
+				echo "<option value=''>'" . esc_html__( 'Show all', 'media-category' ) . "' '" . esc_html( $tax_name ) . "'</option>";
 				foreach ( $terms as $term ) {
 					printf(
 						'<option value="%1$s" %2$s>%3$s (%4$s)</option>',
-						$term->slug,
+						esc_attr( $term->slug ),
 						( ( isset( $_GET[ $tax_slug ] ) && ( $_GET[ $tax_slug ] == $term->slug ) ) ? ' selected="selected"' : '' ),
-						$term->name,
-						$term->count
+						esc_html( $term->name ),
+						esc_html( $term->count )
 					);
 				}
 				echo '</select>';

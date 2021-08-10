@@ -1,11 +1,11 @@
-(function() {
+(function () {
   var MediaLibraryTaxonomyFilter = wp.media.view.AttachmentFilters.extend({
     id: 'media-attachment-taxonomy-filter',
 
-    createFilters: function() {
+    createFilters: function () {
       var filters = {};
       // Formats the 'terms' we've included via wp_localize_script()
-      _.each(wpmc_admin_js.terms || {}, function(value, index) {
+      _.each(wpmc_admin_js.terms || {}, function (value, index) {
         filters[index] = {
           text: value.name,
           props: {
@@ -30,7 +30,7 @@
    */
   var AttachmentsBrowser = wp.media.view.AttachmentsBrowser;
   wp.media.view.AttachmentsBrowser = wp.media.view.AttachmentsBrowser.extend({
-    createToolbar: function() {
+    createToolbar: function () {
       // Make sure to load the original toolbar
       AttachmentsBrowser.prototype.createToolbar.call(this);
       this.toolbar.set('MediaLibraryTaxonomyFilter', new MediaLibraryTaxonomyFilter({
@@ -42,9 +42,9 @@
   });
 });
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
   'use strict';
-  jQuery("#bulk-action-selector-top").on('change', function() {
+  jQuery("body").on('change', '#bulk-action-selector-top', function () {
     var selectVal = jQuery('#bulk-action-selector-top :selected').val();
     if (selectVal == 'change_term') {
       var loaderContainer = jQuery('<span/>', {
@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
         data: {
           action: 'list_terms'
         },
-        success: function(result) {
+        success: function (result) {
           jQuery(loaderContainer).hide();
           jQuery(result).insertAfter("#bulk-action-selector-top");
         }
@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
     }
   });
 
-  jQuery("#bulk-action-selector-bottom").on('change', function() {
+  jQuery("body").on('change', '#bulk-action-selector-bottom', function () {
     var selectVal = jQuery('#bulk-action-selector-bottom :selected').val();
     if (selectVal == 'change_term') {
       var loaderContainer = jQuery('<span/>', {
@@ -90,7 +90,7 @@ jQuery(document).ready(function() {
         data: {
           action: 'list_terms'
         },
-        success: function(result) {
+        success: function (result) {
           jQuery(loaderContainer).hide();
           jQuery(result).insertAfter("#bulk-action-selector-bottom");
         }
