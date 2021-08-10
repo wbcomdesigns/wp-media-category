@@ -97,7 +97,7 @@ if ( ! class_exists( 'Wp_Media_Category_Admin' ) ) :
 			 * class.
 			 */
 
-			if ( $pagenow == 'upload.php' || $pagenow == 'post.php' || $pagenow == 'post-new.php' ) {
+			if ( 'upload.php' === $pagenow || 'post.php' === $pagenow || 'post-new.php' === $pagenow ) {
 				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-media-category-admin.js', array( 'jquery' ), $this->version, false );
 				wp_localize_script(
 					$this->plugin_name,
@@ -111,9 +111,9 @@ if ( ! class_exists( 'Wp_Media_Category_Admin' ) ) :
 			}
 		}
 
-		function wpmc_add_body_class( $classes ) {
+		public function wpmc_add_body_class( $classes ) {
 			global $pagenow;
-			if ( $pagenow == 'post.php' || $pagenow == 'post-new.php' ) {
+			if ( 'post.php' === $pagenow || 'post-new.php' === $pagenow  ) {
 				$classes .= 'wp-media-category';
 			}
 			return $classes;
