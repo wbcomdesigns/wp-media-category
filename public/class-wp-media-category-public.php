@@ -111,6 +111,10 @@ if ( ! class_exists( 'Wp_Media_Category_Public' ) ) :
 
 		/**
 		 * Shortcode for media category.
+		 *
+		 * @param  array  $attrs Define this variable as a array type.
+		 * @param  null   $content Define as null.
+		 * @param string $tag store value empty.
 		 */
 		public function wpmc_media_category_shortcode( $attrs = array(), $content = null, $tag = '' ) {
 
@@ -125,7 +129,7 @@ if ( ! class_exists( 'Wp_Media_Category_Public' ) ) :
 			ob_start();
 			echo '<h3>' . esc_html__( ucfirst( $atts['category'] ), 'media-category' ) . '</h3>';
 			if ( ! term_exists( $atts['category'], 'media_category' ) ) {
-				echo '<p class="wpmc-media-error">' . __( 'No such category exists!', 'media-category' ) . '</p>';
+				echo '<p class="wpmc-media-error">' . esc_html_e( 'No such category exists!', 'media-category' ) . '</p>';
 			} else {
 				if ( ! empty( $atts['category'] ) ) {
 					$wp_media = get_posts(
@@ -156,20 +160,20 @@ if ( ! class_exists( 'Wp_Media_Category_Public' ) ) :
 							} elseif ( strpos( $media->post_mime_type, 'video' ) !== false ) {
 								echo '<div class="wpmc-single-media-video">';
 								echo '<video controls="controls">';
-								echo '<source src="' . $media_url . '">';
+								echo '<source src="' . esc_url( $media_url ) . '">';
 								echo '</video>';
 								echo '</div>';
 							} elseif ( strpos( $media->post_mime_type, 'audio' ) !== false ) {
 								echo '<div class="wpmc-single-media-audio">';
 								echo '<audio controls="controls">';
-								echo '<source src="' . $media_url . '">';
+								echo '<source src="' . esc_url( $media_url ) . '">';
 								echo '</audio>';
 								echo '</div>';
 							}
 						} //end loop for printing media
 						echo '</div>';
 					} else {
-						echo '<p class="wpmc-media-error">' . __( 'Sorry no media found in this category.', 'media-category' ) . '</p>';
+						echo '<p class="wpmc-media-error">' . esc_html_e( 'Sorry no media found in this category.', 'media-category' ) . '</p>';
 					}
 				}
 			}
