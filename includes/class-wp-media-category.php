@@ -162,7 +162,7 @@ if ( ! class_exists( 'Wp_Media_Category' ) ) :
 			$this->loader->add_action( 'init', $plugin_admin, 'wpmc_create_media_taxonomy' );
 			$this->loader->add_action( 'admin_notices', $plugin_admin, 'wpmc_bulk_change_term_media_notices' );
 			$this->loader->add_action( 'wp_ajax_list_terms', $plugin_admin, 'wpmc_list_terms' );
-
+			$this->loader->add_action('pre_get_posts', $plugin_admin, 'filter_media_without_taxonomy');
 			$this->loader->add_filter( 'bulk_actions-upload', $plugin_admin, 'wpmc_add_media_category_bulk_action', 10, 1 );
 			$this->loader->add_filter( 'handle_bulk_actions-upload', $plugin_admin, 'wpmc_media_category_bulk_action_handler', 10, 3 );
 			$this->loader->add_action( 'admin_notices', $plugin_admin, 'wpmc_updated_media_category' );

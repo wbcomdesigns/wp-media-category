@@ -24,6 +24,7 @@
       };
       this.filters = filters;
     }
+    
   });
   /**
    * Extend and override wp.media.view.AttachmentsBrowser to include our new filter

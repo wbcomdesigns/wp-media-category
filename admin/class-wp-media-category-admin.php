@@ -53,6 +53,7 @@ if ( ! class_exists( 'Wp_Media_Category_Admin' ) ) :
 			$this->version     = $version;
 			add_filter( 'admin_body_class', array( $this, 'wpmc_add_body_class' ) );
 			add_filter( 'body_class', array( $this, 'wpmc_add_body_class_for_video' ) );
+			
 		}
 
 		/**
@@ -232,6 +233,7 @@ if ( ! class_exists( 'Wp_Media_Category_Admin' ) ) :
 				if ( count( $terms ) > 0 ) {
 					echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
 					echo "<option value=''>" . __( 'Show all', 'media-category' ) . " $tax_name</option>";
+					echo "<option value='0'>" . __( 'Show Media Without Category', 'media-category' ) . "</option>";
 					foreach ( $terms as $term ) {
 						printf(
 							'<option value="%1$s" %2$s>%3$s (%4$s)</option>',
@@ -252,6 +254,26 @@ if ( ! class_exists( 'Wp_Media_Category_Admin' ) ) :
 				$c[] = 'wbmedia-shortcode';
 			}
 			return $c;
+		}
+
+		public function filter_media_without_taxonomy($query) {
+			if (!is_admin() || !$query->is_main_query()) {
+				return;
+			}
+			if ( isset( $_GET['media_category'] ) && $_GET['media_category'] == 0) {
+				if ($query->get('post_type') === 'attachment') {
+					// Add your taxonomy parameter name or slug here
+					$taxonomy = 'media_category';
+			
+					// Exclude media with assigned taxonomy
+					$query->set('tax_query', array(
+						array(
+							'taxonomy' => $taxonomy,
+							'operator' => 'NOT EXISTS',
+						),
+					));
+				}
+			}
 		}
 	}
 
