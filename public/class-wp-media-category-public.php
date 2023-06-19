@@ -62,23 +62,24 @@ if ( ! class_exists( 'Wp_Media_Category_Public' ) ) :
 		 */
 		public function wpmc_enqueue_styles() {
 			global $post;
+			if (!is_null($post)) {
+				if ( has_shortcode( $post->post_content, 'wbmedia' ) ) {
 
-			if ( has_shortcode( $post->post_content, 'wbmedia' ) ) {
+					/**
+					* This function is provided for demonstration purposes only.
+					*
+					* An instance of this class should be passed to the run() function
+					* defined in Wp_Media_Category_Loader as all of the hooks are defined
+					* in that particular class.
+					*
+					* The Wp_Media_Category_Loader will then create the relationship
+					* between the defined hooks and the functions defined in this
+					* class.
+					*/
 
-				/**
-				* This function is provided for demonstration purposes only.
-				*
-				* An instance of this class should be passed to the run() function
-				* defined in Wp_Media_Category_Loader as all of the hooks are defined
-				* in that particular class.
-				*
-				* The Wp_Media_Category_Loader will then create the relationship
-				* between the defined hooks and the functions defined in this
-				* class.
-				*/
-
-				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-media-category-public.css', array(), $this->version, 'all' );
-				wp_enqueue_style( 'wpmc-lightbox-css', plugin_dir_url( __FILE__ ) . 'css/jquery.littlelightbox.css' );
+					wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-media-category-public.css', array(), $this->version, 'all' );
+					wp_enqueue_style( 'wpmc-lightbox-css', plugin_dir_url( __FILE__ ) . 'css/jquery.littlelightbox.css' );
+				}
 			}
 		}
 
@@ -89,23 +90,24 @@ if ( ! class_exists( 'Wp_Media_Category_Public' ) ) :
 		 */
 		public function wpmc_enqueue_scripts() {
 			global $post;
+			if (!is_null($post)) {
+				if ( has_shortcode( $post->post_content, 'wbmedia' ) ) {
 
-			if ( has_shortcode( $post->post_content, 'wbmedia' ) ) {
+					/**
+					 * This function is provided for demonstration purposes only.
+					 *
+					 * An instance of this class should be passed to the run() function
+					 * defined in Wp_Media_Category_Loader as all of the hooks are defined
+					 * in that particular class.
+					 *
+					 * The Wp_Media_Category_Loader will then create the relationship
+					 * between the defined hooks and the functions defined in this
+					 * class.
+					 */
 
-				/**
-				 * This function is provided for demonstration purposes only.
-				 *
-				 * An instance of this class should be passed to the run() function
-				 * defined in Wp_Media_Category_Loader as all of the hooks are defined
-				 * in that particular class.
-				 *
-				 * The Wp_Media_Category_Loader will then create the relationship
-				 * between the defined hooks and the functions defined in this
-				 * class.
-				 */
-
-				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-media-category-public.js', array( 'jquery' ), $this->version, false );
-				wp_enqueue_script( 'wpmc-lightbox-js', plugin_dir_url( __FILE__ ) . 'js/jquery.littlelightbox.js', array( 'jquery' ) );
+					wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-media-category-public.js', array( 'jquery' ), $this->version, false );
+					wp_enqueue_script( 'wpmc-lightbox-js', plugin_dir_url( __FILE__ ) . 'js/jquery.littlelightbox.js', array( 'jquery' ) );
+				}
 			}
 		}
 
