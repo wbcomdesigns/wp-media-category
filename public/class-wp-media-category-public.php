@@ -153,8 +153,8 @@ if ( ! class_exists( 'Wp_Media_Category_Public' ) ) :
 							$media_url = wp_get_attachment_url( $media->ID );
 							if ( strpos( $media->post_mime_type, 'image' ) !== false ) {
 								echo '<div class="wpmc-single-media">';
-								echo '<a title="' . $media->post_title . '" href="' . $media->guid . '" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
-								echo '<img src=' . $media->guid . ' alt="' . $media->post_title . '" />';
+								echo '<a title="' . esc_html($media->post_title) . '" href="' . esc_html($media->guid) . '" class="wpmc-media-lightbox" data-littlelightbox-group="gallery">';
+								echo '<img src=' . esc_html($media->guid) . ' alt="' . esc_html($media->post_title) . '" />';
 								echo '</a>';
 								echo '</div>';
 							} elseif ( strpos( $media->post_mime_type, 'video' ) !== false ) {
