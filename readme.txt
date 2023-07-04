@@ -30,6 +30,22 @@ Just like other post types categories, you have assign any media to any category
 3. The screenshot shows the media list with assigned category showing where the shortcode is executing and corresponds to screenshot-3.(png|jpg|jpeg|gif).
 
 == Changelog ==
+= 1.4.0 =
+
+* Fix: (#33) PHP warnings
+* Fix: (#17) Uncategorized
+* Fix: Escaping issue
+* Fix: PHPCS issue
+* Fix: Media category issue
+* Fix: (#24) Count on notice
+* Fix: (#23) HTML is rendering on updating media category
+* Fix: Bulk category fix
+* Fix: Bottom selection fix
+* Fix: Bulk category change
+* Fix: (#20) Load front-end scripts on the plugin page
+* Fix: (#18) Added class existing condition
+* Fix: (#16)Bulk editing issue
+
 = 1.3.0 =
 * Enhancement: (#11) Add Media Filter at Grid layout
 * Enhancement: (#12) Add Media Filter at Add Media section while adding media at blog or page
