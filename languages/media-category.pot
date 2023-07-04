@@ -1,14 +1,14 @@
-# Copyright (C) 2020
+# Copyright (C) 2023
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 22:55:54+00:00\n"
+"POT-Creation-Date: 2023-07-04 16:45:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Varun Dubey\n"
 "Language-Team: Wbcom Designs\n"
 "Language: en\n"
@@ -105,71 +105,75 @@ msgstr ""
 msgid "WordPress Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:127
+#: admin/class-wp-media-category-admin.php:129
 msgid "Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:128
-#: admin/class-wp-media-category-admin.php:135
+#: admin/class-wp-media-category-admin.php:130
+#: admin/class-wp-media-category-admin.php:137
 msgid "Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:129
+#: admin/class-wp-media-category-admin.php:131
 msgid "Search Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:130
+#: admin/class-wp-media-category-admin.php:132
 msgid "All Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:131
+#: admin/class-wp-media-category-admin.php:133
 msgid "Change Media Category Media Categories"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:132
+#: admin/class-wp-media-category-admin.php:134
 msgid "Update Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:133
+#: admin/class-wp-media-category-admin.php:135
 msgid "Add New Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:134
+#: admin/class-wp-media-category-admin.php:136
 msgid "New Media Category Name"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:158
+#: admin/class-wp-media-category-admin.php:161
 msgid "Attachment change_term."
 msgid_plural "%s attachments category changed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/class-wp-media-category-admin.php:185
+#: admin/class-wp-media-category-admin.php:189
 msgid "Change Media Category"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:208
+#: admin/class-wp-media-category-admin.php:213
 msgid "posts"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:208
+#: admin/class-wp-media-category-admin.php:213
 msgid "post"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:211
+#: admin/class-wp-media-category-admin.php:216
 msgid ""
 "<div class=\"notice notice-info is-dismissible\"><p>Updated media category "
 "for %1$s %2$s.</p></div>"
 msgstr ""
 
-#: admin/class-wp-media-category-admin.php:233
+#: admin/class-wp-media-category-admin.php:238
 msgid "Show all"
 msgstr ""
 
-#: public/class-wp-media-category-public.php:119
+#: admin/class-wp-media-category-admin.php:239
+msgid "Show Media Without Category"
+msgstr ""
+
+#: public/class-wp-media-category-public.php:134
 msgid "No such category exists!"
 msgstr ""
 
-#: public/class-wp-media-category-public.php:163
+#: public/class-wp-media-category-public.php:178
 msgid "Sorry no media found in this category."
 msgstr ""
