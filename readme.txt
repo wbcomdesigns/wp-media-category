@@ -3,7 +3,7 @@ Contributors: wbcomdesigns,vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: woocommerce, price
 Requires at least: 3.0.1
-Tested up to: 5.4.0
+Tested up to: 6.3.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,7 +31,6 @@ Just like other post types categories, you have assign any media to any category
 
 == Changelog ==
 = 1.4.0 =
-
 * Fix: (#33) PHP warnings
 * Fix: (#17) Uncategorized
 * Fix: Escaping issue
